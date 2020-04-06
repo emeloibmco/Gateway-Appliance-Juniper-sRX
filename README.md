@@ -3,12 +3,12 @@
 ---
 IBM Cloud ™ Juniper vSRX le permite enrutar selectivamente el tráfico de red pública y privada, a través de un firewall de nivel empresarial con todas las funciones que funciona con características de software de JunOS, como pilas de enrutamiento completas, QoS y tráfico compartido, enrutamiento basado en políticas, y VPN.
 
-A continuación se detalla la configuración de una VPN basada en ruta entre dos *sitios.* En esta configuración de muestra, el Servidor 1 (Sitio A) puede comunicarse con el Servidor 2 (Sitio B), y cada cad uno de estos utiliza el protocolo de autenticación IPSEC de dos fases.
+A continuación se detalla la configuración de una VPN basada en ruta entre dos *sitios.* En esta configuración de muestra, el Servidor 1 (Sitio A) puede comunicarse con el Servidor 2 (Sitio B), y cada uno de estos utiliza el protocolo de autenticación IPSEC de dos fases.
 
-Para configurar su gateway appliance necesitará conocer su IP pública, ara esto aceda al menú de hamburguesa o de tres lineas de su cuenta IBM, seleccione _intraestructura clásica_, luego en la sección _network_ seleccione _Gateway appliance_, al seleccionar su dispositivo encontrará una descripción de este, tome nota de la direccion _IP-gatewayappliance_ y de la _clave-de-acceso_, luego de esto podrá acceder a el mediante las siguientes dos modalidades:
+Para configurar su gateway appliance necesitará conocer su IP pública, para esto acceda al menú de hamburguesa o de tres líneas de su cuenta IBM, seleccione _infraestructura clásica_, luego en la sección _network_ seleccione _Gateway appliance_, al seleccionar su dispositivo encontrará una descripción de este, tome nota de la direccion _IP-gatewayappliance_ y de la _clave-de-acceso_, luego de esto podrá acceder a el mediante las siguientes dos modalidades:
 
 ### A. Interfaz J-web
-En su buscador ingrese la IP de su gateway appliance junto con el puerto 8443 _Ejemplo:_ 169.62.191.154:8443 De esta forma ingresará a la interfaz gráfica y deberá especificar el usuario: _admin_ y  su contraseña: _clave de acceso_. Encontrará las especificaciones necesarias para la configuración en la sección _Configuration -> security services -> ipsec_ VPN.
+En su buscador ingrese la IP de su gateway appliance junto con el puerto 8443 _Ejemplo:_ 169.62.191.154:8443 De esta forma ingresará a la interfaz gráfica y deberá especificar el usuario: _admin_ y  su contraseña: _clave de acceso_. Encontrará las especificaciones necesarias para la configuración en la sección _Configuration -> security services -> ipsec_VPN.
 
 ### B. Conexión SSH
 Abra un Power Shell en su equipo e ingrese el comando de conexión ssh:
@@ -68,7 +68,40 @@ set security ipsec vpn IPSEC-VPN establish-tunnels immediately
 set security ipsec vpn IPSEC-VPN bind-interface st0.1
 ```
 ### Enrutamiento
+Para configurar el enrutamiento con la interfaz se hará mediante los dos comandos que están a continuación, los cuales se deberán implementar en cada gateway. En este caso la interfaz es st0.
+```sh
+set interfaces st0 unit 1 family inet
+set security zones security-zone VPN interfaces st0.1
+```
+Ahora, la siguiente configuración corresponde a crear una ruta estática en la tabla de enrutamiento, la cual debe, como mínimo, definir la ruta como estática y asociarle una dirección IP del siguiente salto. El primero comando se implementará dentro de la CLI del gateway1 y el segundo comando en el gateway2. Se hace por separado puesto que se tienen 2 túneles de cifrado.
+```sh
+set routing-options static route 10.86.129.0/26 next-hop st0.1
+set routing-options static route 10.86.129.0/26 next-hop st0.1
+```
 ### Políticas de seguridad
+Es importante resaltar el valor de las libretas de direcciones, las cuales son componentes, a los que se hace referencia en  configuraciones como políticas de seguridad o NAT. Explicando los siguientes comandos, se tiene la dirección IP del Servidor 1 haciendo referencia a la Network A y respectivamente la del Servidor 2 con Network B.
+```sh
+set security address-book global address Network-A 10.86.129.0/26
+set security address-book global address Network-B 10.216.1.128/26
+```
+
+A continuación, se configura los servicios entrantes de host, las entradas de la libreta de direcciones para cada zona y dentro de esta configuración se crea el tráfico del túnel que ingresa por la zona de confianza, SL-PRIVATE a la zona VPN y viceversa.
+
+Configuración para el gateway 1:
+```sh
+set security policies from-zone SL-PRIVATE to-zone VPN policy Trust-to-VPN match source-address Network-A destination-address Network-B application any
+set security policies from-zone SL-PRIVATE to-zone VPN policy Trust-to-VPN then permit
+set security policies from-zone VPN to-zone SL-PRIVATE policy VPN-to-Trust match source-address Network-B destination-address Network-A application any
+set security policies from-zone VPN to-zone SL-PRIVATE policy VPN-to-Trust then permit
+```
+
+Configuración para el gateway 2:
+```sh
+set security policies from-zone SL-PRIVATE to-zone VPN policy Trust-to-VPN match source-address Network-B destination-address Network-A application any
+set security policies from-zone SL-PRIVATE to-zone VPN policy Trust-to-VPN then permit
+set security policies from-zone VPN to-zone SL-PRIVATE policy VPN-to-Trust match source-address Network-A destination-address Network-B application any
+set security policies from-zone VPN to-zone SL-PRIVATE policy VPN-to-Trust then permit
+```
 
 ## Comprobación
 ---
