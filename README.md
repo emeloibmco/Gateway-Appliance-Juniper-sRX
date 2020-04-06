@@ -5,6 +5,8 @@ IBM Cloud ™ Juniper vSRX le permite enrutar selectivamente el tráfico de red 
 
 A continuación se detalla la configuración de una VPN basada en ruta entre dos zonas. En esta configuración de muestra, el Servidor 1  (zona A) puede comunicarse con el Servidor 2 (zona B), y cada uno de estos utiliza el protocolo de autenticación IPSEC de dos fases.
 
+<img src="https://github.com/emeloibmco/Gateway-Appliance-Juniper-sRX/blob/master/arquitectura.PNG" />
+
 Para configurar su gateway appliance necesitará conocer su IP pública, para esto acceda al menú de hamburguesa o de tres líneas de su cuenta IBM, seleccione _infraestructura clásica_, luego en la sección _network_ seleccione _Gateway appliance_, al seleccionar su dispositivo encontrará una descripción de este, tome nota de la direccion _IP-gatewayappliance_ y de la _clave-de-acceso_, luego de esto podrá acceder a el mediante las siguientes dos modalidades:
 
 ### A. Interfaz J-web
