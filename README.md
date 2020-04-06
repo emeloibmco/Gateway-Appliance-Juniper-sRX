@@ -1,9 +1,9 @@
-# Gateway-Appliance-Juniper-sRX
+# Gateway-Appliance-Juniper-vSRX :cloud:
 ## Descripción general
 ---
-IBM Cloud ™ Juniper vSRX le permite enrutar selectivamente el tráfico de red pública y privada, a través de un firewall de nivel empresarial con todas las funciones que funciona con características de software de JunOS, como pilas de enrutamiento completas, QoS y tráfico compartido, enrutamiento basado en políticas, y VPN.
+IBM Cloud ™ Juniper vSRX le permite enrutar selectivamente el tráfico de red pública y privada, a través de un firewall de nivel empresarial que funciona con características de software de JunOS, como stack de enrutamiento completas, tráfico compartido, enrutamiento basado en políticas, y VPN.
 
-A continuación se detalla la configuración de una VPN basada en ruta entre dos *sitios.* En esta configuración de muestra, el Servidor 1 (Sitio A) puede comunicarse con el Servidor 2 (Sitio B), y cada uno de estos utiliza el protocolo de autenticación IPSEC de dos fases.
+A continuación se detalla la configuración de una VPN basada en ruta entre dos zonas. En esta configuración de muestra, el Servidor 1  (zona A) puede comunicarse con el Servidor 2 (zona B), y cada uno de estos utiliza el protocolo de autenticación IPSEC de dos fases.
 
 Para configurar su gateway appliance necesitará conocer su IP pública, para esto acceda al menú de hamburguesa o de tres líneas de su cuenta IBM, seleccione _infraestructura clásica_, luego en la sección _network_ seleccione _Gateway appliance_, al seleccionar su dispositivo encontrará una descripción de este, tome nota de la direccion _IP-gatewayappliance_ y de la _clave-de-acceso_, luego de esto podrá acceder a el mediante las siguientes dos modalidades:
 
@@ -25,7 +25,7 @@ configure
 ```
 Para la configuración del túnel VPN ipsec juniper hace uso del protocolo de intercambio de claves de internet (IKE) el cual trabaja en dos fases:
 
-### FASE 1:
+### FASE 1: :page_with_curl:
 En esta fase se establece un canal Seguro para la comunicación entre dispositivos. Ingrese los siguientes comandos en ambos gateways para la configuración de la fase 1 del protocolo, teniendo en cuenta que la dirección IP-GATEWAY-OP es la dirección ip privada de la interfaz ge-0/0/1 del vSRX opuesto al que esta configurando, la cual podrá ver en el primer comando de los listados a continuación:
 ```sh
 show interfaces
@@ -48,7 +48,7 @@ set security ike gateway IKE-GW external-interface ge-0/0/1
 set security zones security-zone
 SL-PUBLIC host-inbound-traffic system-services ike
 ```
-### FASE 2:
+### FASE 2: :page_with_curl:
 En esta fase se establece el túnel VPN para el tráfico de red. Ingrese los siguientes comandos en ambos gateways para la configuración de la fase 2 del protocolo, fíjese que se hará uso de la interfaz st0.1 como se mostró en el diagrama de arquitectura.
 
 ```sh
@@ -67,7 +67,7 @@ set security ipsec vpn IPSEC-VPN establish-tunnels immediately
 
 set security ipsec vpn IPSEC-VPN bind-interface st0.1
 ```
-### Enrutamiento
+### Enrutamiento :mag_right:
 Para configurar el enrutamiento con la interfaz se hará mediante los dos comandos que están a continuación, los cuales se deberán implementar en cada gateway. En este caso la interfaz es st0.
 ```sh
 set interfaces st0 unit 1 family inet
@@ -78,7 +78,7 @@ Ahora, la siguiente configuración corresponde a crear una ruta estática en la 
 set routing-options static route 10.86.129.0/26 next-hop st0.1
 set routing-options static route 10.86.129.0/26 next-hop st0.1
 ```
-### Políticas de seguridad
+### Políticas de seguridad :lock:
 Es importante resaltar el valor de las libretas de direcciones, las cuales son componentes, a los que se hace referencia en  configuraciones como políticas de seguridad o NAT. Explicando los siguientes comandos, se tiene la dirección IP del Servidor 1 haciendo referencia a la Network A y respectivamente la del Servidor 2 con Network B.
 ```sh
 set security address-book global address Network-A 10.86.129.0/26
@@ -103,7 +103,7 @@ set security policies from-zone VPN to-zone SL-PRIVATE policy VPN-to-Trust match
 set security policies from-zone VPN to-zone SL-PRIVATE policy VPN-to-Trust then permit
 ```
 
-## Comprobación
+## Comprobación :heavy_check_mark:
 ---
 Utilice los siguientes comandos para ver que el tunel ha sido creado y que se encuentra activo, además de identificar las configuraciones anteriormente establecidas.
 
