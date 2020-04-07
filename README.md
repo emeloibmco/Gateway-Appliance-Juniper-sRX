@@ -115,6 +115,9 @@ Utilice los siguientes comandos para ver que el tunel ha sido creado y que se en
 show security IKE security-associations
 show security ipsec security-associations
 ```
+La salida que tendremos en nuestra CLI es la siguiente:
+<img src="https://github.com/emeloibmco/Gateway-Appliance-Juniper-sRX/blob/master/Comprobar.PNG" />
+
 En caso de que el estado se encuentre en _DOWN_ siga los pasos de la [documantación](https://kb.juniper.net/InfoCenter/index?page=content&id=KB10100&actp=search) proporcionada por juniper.
 
 En caso de necesitar regresar a la configuración incial del vSRX revise los commits realizados usando el comando:
