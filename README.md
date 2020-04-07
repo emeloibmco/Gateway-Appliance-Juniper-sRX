@@ -12,6 +12,8 @@ Para configurar su gateway appliance necesitará conocer su IP pública, para es
 ### A. Interfaz J-web
 En su buscador ingrese la IP de su gateway appliance junto con el puerto 8443 _Ejemplo:_ 169.62.191.154:8443 De esta forma ingresará a la interfaz gráfica y deberá especificar el usuario: _admin_ y  su contraseña: _clave de acceso_. Encontrará las especificaciones necesarias para la configuración en la sección _Configuration -> security services -> ipsec_VPN.
 
+<img src="https://github.com/emeloibmco/Gateway-Appliance-Juniper-sRX/blob/master/j-web.PNG" />
+
 ### B. Conexión SSH
 Abra un Power Shell en su equipo e ingrese el comando de conexión ssh:
 ```sh
