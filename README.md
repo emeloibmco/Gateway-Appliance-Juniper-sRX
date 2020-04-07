@@ -1,7 +1,7 @@
 # Gateway-Appliance-Juniper-vSRX :cloud:
 ## Descripción general
 ---
-IBM Cloud ™ Juniper vSRX le permite enrutar selectivamente el tráfico de red pública y privada, a través de un firewall de nivel empresarial que funciona con características de software de JunOS, como stack de enrutamiento completas, tráfico compartido, enrutamiento basado en políticas, y VPN.
+IBM Cloud ™ Juniper vSRX le permite enrutar selectivamente el tráfico de red pública y privada, a través de un firewall de nivel empresarial que funciona con características de software de JunOS, como stack de enrutamiento completo, tráfico compartido, enrutamiento basado en políticas y VPN.
 
 A continuación se detalla la configuración de una VPN basada en ruta entre dos zonas. En esta configuración de muestra, el Servidor 1  (zona A) puede comunicarse con el Servidor 2 (zona B), y cada uno de estos utiliza el protocolo de autenticación IPSEC de dos fases.
 
@@ -19,7 +19,7 @@ Abra un Power Shell en su equipo e ingrese el comando de conexión ssh:
 ```sh
 ssh admin@<IP-gatewayappliance>
 ```
-Cuando se le pida la contraseña ingrese la clave anotada como _clave-de-acceso_. Podra rectificar que se encuentra en la cosnola del dispositivo al ver la etiqueta con el nombre que le dio a este.
+Cuando se le pida la contraseña ingrese la clave anotada como _clave-de-acceso_. Podra rectificar que se encuentra en la consola del dispositivo al ver la etiqueta con el nombre que le dio a este.
 
 ## Configuración
 ---
