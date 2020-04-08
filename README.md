@@ -136,7 +136,7 @@ rollback <commit-number>
 [2] https://cloud.ibm.com/docs/vpc-on-classic-network?topic=vpc-on-classic-network-creating-a-secure-connection-with-a-remote-juniper-vsrx-peer&locale=es
 
 ## Autores:
----
+
 - Juliana León
 - Felipe Martínez
 - Jessica Sepúlveda
