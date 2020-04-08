@@ -129,7 +129,6 @@ Guíese por las fechas en que se realizaron los commits y regrese al _Commit-num
 rollback <commit-number>
 ```
 ## Referencias:
----
 
 [1] https://cloud.ibm.com/docs/vsrx?topic=vsrx-performing-ibm-cloud-juniper-vsrx-basics
 
