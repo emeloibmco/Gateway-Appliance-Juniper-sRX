@@ -5,7 +5,7 @@ IBM Cloud ™ Juniper vSRX le permite enrutar selectivamente el tráfico de red 
 
 A continuación se detalla la configuración de una VPN basada en ruta entre dos zonas. En esta configuración de muestra, el Servidor 1  (zona A) puede comunicarse con el Servidor 2 (zona B), y cada uno de estos utiliza el protocolo de autenticación IPSEC de dos fases.
 
-<img src="https://github.com/emeloibmco/Gateway-Appliance-Juniper-sRX/blob/master/arquitectura.PNG" />
+<img src="https://github.com/emeloibmco/Gateway-Appliance-Juniper-sRX/blob/master/arquitectura.PNG" />[1]
 
 Para configurar su gateway appliance necesitará conocer su IP pública, para esto acceda al menú de hamburguesa o de tres líneas de su cuenta IBM, seleccione _infraestructura clásica_, luego en la sección _network_ seleccione _Gateway appliance_, al seleccionar su dispositivo encontrará una descripción de este, tome nota de la direccion _IP-gatewayappliance_ y de la _clave-de-acceso_, luego de esto podrá acceder a el mediante las siguientes dos modalidades:
 
@@ -30,7 +30,7 @@ configure
 Para la configuración del túnel VPN ipsec juniper hace uso del protocolo de intercambio de claves de internet (IKE) el cual trabaja en dos fases:
 
 ### FASE 1: :page_with_curl:
-En esta fase se establece un canal Seguro para la comunicación entre dispositivos. Ingrese los siguientes comandos en ambos gateways para la configuración de la fase 1 del protocolo, teniendo en cuenta que la dirección IP-GATEWAY-OP es la dirección ip privada de la interfaz ge-0/0/1 del vSRX opuesto al que esta configurando, la cual podrá ver en el primer comando de los listados a continuación:
+En esta fase se establece un canal seguro para la comunicación entre dispositivos.[2] Ingrese los siguientes comandos en ambos gateways para la configuración de la fase 1 del protocolo, teniendo en cuenta que la dirección IP-GATEWAY-OP es la dirección ip privada de la interfaz ge-0/0/1 del vSRX opuesto al que esta configurando, la cual podrá ver en el primer comando de los listados a continuación:
 ```sh
 show interfaces
 ```
@@ -118,7 +118,7 @@ show security ipsec security-associations
 La salida que tendremos en nuestra CLI es la siguiente:
 <img src="https://github.com/emeloibmco/Gateway-Appliance-Juniper-sRX/blob/master/Comprobar.PNG" />
 
-En caso de que el estado se encuentre en _DOWN_ siga los pasos de la [documantación](https://kb.juniper.net/InfoCenter/index?page=content&id=KB10100&actp=search) proporcionada por juniper.
+En caso de que el estado se encuentre en _DOWN_ siga los pasos de la [documentación](https://kb.juniper.net/InfoCenter/index?page=content&id=KB10100&actp=search) proporcionada por juniper.
 
 En caso de necesitar regresar a la configuración incial del vSRX revise los commits realizados usando el comando:
 ```sh
@@ -128,3 +128,15 @@ Guíese por las fechas en que se realizaron los commits y regrese al _Commit-num
 ```sh
 rollback <commit-number>
 ```
+## Referencias:
+---
+
+[1] https://cloud.ibm.com/docs/vsrx?topic=vsrx-performing-ibm-cloud-juniper-vsrx-basics
+
+[2] https://cloud.ibm.com/docs/vpc-on-classic-network?topic=vpc-on-classic-network-creating-a-secure-connection-with-a-remote-juniper-vsrx-peer&locale=es
+
+## Autores:
+---
+- Juliana León
+- Felipe Martínez
+- Jessica Sepúlveda
