@@ -30,7 +30,7 @@ configure
 Para la configuración del túnel VPN ipsec juniper hace uso del protocolo de intercambio de claves de internet (IKE) el cual trabaja en dos fases:
 
 ### FASE 1: :page_with_curl:
-En esta fase se establece un canal seguro para la comunicación entre dispositivos.[2] Ingrese los siguientes comandos en ambos gateways para la configuración de la fase 1 del protocolo, teniendo en cuenta que la dirección IP-GATEWAY-OP es la dirección ip privada de la interfaz ge-0/0/1 del vSRX opuesto al que esta configurando, la cual podrá ver en el primer comando de los listados a continuación:
+En esta fase se establece un canal seguro para la comunicación entre dispositivos.[2] Ingrese los siguientes comandos en ambos gateways para la configuración de la fase 1 del protocolo, teniendo en cuenta que la dirección IP-GATEWAY-OP es la dirección ip privada de la interfaz ge-0/0/1 del vSRX opuesto al que está configurando, la cual podrá ver en el primer comando de los listados a continuación:
 ```sh
 show interfaces
 ```
@@ -129,13 +129,14 @@ Guíese por las fechas en que se realizaron los commits y regrese al _Commit-num
 rollback <commit-number>
 ```
 ## Referencias:
+Conceptos básicos sobre el funcionamiento de vSRX </br>
+https://cloud.ibm.com/docs/vsrx?topic=vsrx-performing-ibm-cloud-juniper-vsrx-basics
 
-[1] https://cloud.ibm.com/docs/vsrx?topic=vsrx-performing-ibm-cloud-juniper-vsrx-basics
-
-[2] https://cloud.ibm.com/docs/vpc-on-classic-network?topic=vpc-on-classic-network-creating-a-secure-connection-with-a-remote-juniper-vsrx-peer&locale=es
+Creación de una conexión segura con Juniper vSRX </br>
+https://cloud.ibm.com/docs/vpc-on-classic-network?topic=vpc-on-classic-network-creating-a-secure-connection-with-a-remote-juniper-vsrx-peer&locale=es
 
 ## Autores:
-
-- Juliana León
-- Felipe Martínez
-- Jessica Sepúlveda
+Equipo IBM Cloud Tech sales Colombia </br>
+_Luis Felipe Martínez_ </br>
+_Jessica Yired Sepúlveda_ 
+_Laura Juliana León González_ </br>
