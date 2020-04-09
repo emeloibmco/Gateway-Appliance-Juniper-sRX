@@ -138,5 +138,5 @@ https://cloud.ibm.com/docs/vpc-on-classic-network?topic=vpc-on-classic-network-c
 ## Autores:
 Equipo IBM Cloud Tech sales Colombia </br>
 _Luis Felipe Martínez_ </br>
-_Jessica Yired Sepúlveda_ 
-_Laura Juliana León González_ </br>
+_Jessica Yired Sepúlveda_ </br>
+_Laura Juliana León González_ 
